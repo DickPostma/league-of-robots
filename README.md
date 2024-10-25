@@ -120,18 +120,13 @@ cd ${HOME}/git/
 git clone https://github.com/rug-cit-hpc/league-of-robots.git
 cd league-of-robots
 #
-# For older openstacksdk < 0.99 we need the ansible openstack collection 1.x.
-# For newer openstacksdk > 1.00 we need the ansible openstack collection 2.x.
-#
-openstacksdk_major_version='3'  # Change for older OpenStack SDK.
-#
 # Create Python virtual environment (once)
 #
-python3 -m venv openstacksdk-${openstacksdk_major_version:-3}.venv
+python3 -m venv python.venv
 #
 # Activate virtual environment.
 #
-source openstacksdk-${openstacksdk_major_version:-3}.venv/bin/activate
+source python.venv/bin/activate
 #
 # Install OpenStack SDK (once) and other python packages.
 #
@@ -170,21 +165,17 @@ pip3 install mitogen
 #### 1. Python virtual environment: install packages to manage OpenStack environment
 
 ```bash
-if [[ "${openstacksdk_major_version:-3}" -eq 0 ]]; then
-  pip3 install "openstacksdk<0.99"
-else
-  pip3 install "openstacksdk==${openstacksdk_major_version:-3}.*"
-fi
+pip3 install openstacksdk # "openstacksdk<0.99" when backward compatibility is needed
 pip3 install openstackclient
 ```
 
 #### 2. Import the required roles and collections for the playbooks.
 
 ```bash
-source openstacksdk-${openstacksdk_major_version:-3}.venv/bin/activate
+source python.venv/bin/activate
 export ANSIBLE_ROLES_PATH="${VIRTUAL_ENV}/ansible/ansible_roles/:"
 export ANSIBLE_COLLECTIONS_PATH="${VIRTUAL_ENV}/ansible/:"
-ansible-galaxy install -r requirements-${openstacksdk_major_version:-3}.yml
+ansible-galaxy install -r requirements.yml
 ```
 
 Note: the default location where these dependencies will get installed with the ```ansible-galaxy install``` command is ```${HOME}/.ansible/```,
@@ -197,7 +188,7 @@ Make sure you already executed `ansible-galaxy install ... ` (see previous step)
 
 ```bash
   pip install azure-cli # if issues occur, try to version lock it to azure-cli==2.61.0 azure azcollection >= 2.6.0 works with it
-  _azure_pip_requirements="$(find "${VIRTUAL_ENV}" -path "*/azure/azcollection/requirements.txt")"
+  _azure_pip_requirements="$(find python.venv -path "*/azure/azcollection/requirements.txt")"
   pip install -r "${_azure_pip_requirements}"
 ```
 
@@ -235,7 +226,7 @@ To create a new *stack* you will need ```group_vars``` and a static inventory fo
   #
   # Activate Python virtual env created in step 0.
   #
-  source openstacksdk-${openstacksdk_major_version:-3}.venv/bin/activate
+  source python.venv/bin/activate
   #
   # Configure this repo for a specific cluster.
   # This will set required ENVIRONMENT variables including
@@ -450,7 +441,7 @@ These shorter subset _playbooks_ can save a lot of time during development, test
   #
   # Activate Python virtual env created in step 0.
   #
-  source openstacksdk-${openstacksdk_major_version:-3}.venv/bin/activate
+  source python.venv/bin/activate
   #
   # Initialize the OpenstackSDK
   #

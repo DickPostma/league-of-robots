@@ -46,7 +46,7 @@
       ansible.builtin.shell:
         cmd: |
              set -o pipefail
-             pip show openstacksdk | fgrep -i Version | awk '{print $2}' | grep -o '^[0-9]*'
+             pip show openstacksdk | grep -i Version | awk '{print $2}' | grep -o '^[0-9]*'
       run_once: true  # noqa run-once
       delegate_to: localhost
       connection: local
@@ -56,7 +56,7 @@
       ansible.builtin.command:
         cmd: |
              ansible-galaxy install
-                            -r requirements-{{ openstacksdk_major_version.stdout }}.yml
+                            -r requirements.yml
                             {% if ansible_version.full is version_compare('2.14', '>=') %} --timeout 120{% endif %}
       run_once: true  # noqa run-once
       delegate_to: localhost
