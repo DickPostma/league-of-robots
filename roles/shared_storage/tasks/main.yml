@@ -447,6 +447,14 @@
 
 #
 ##
+### Restart remote-fs.target to update systemd automount units.
+##
+#
+#systemctl daemon-reload
+#systemctl restart remote-fs.target
+
+#
+##
 ### Deploy quota management
 ##
 #
