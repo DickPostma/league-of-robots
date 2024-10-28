@@ -165,7 +165,7 @@ pip3 install mitogen
 #### 1. Python virtual environment: install packages to manage OpenStack environment
 
 ```bash
-pip3 install openstacksdk # "openstacksdk<0.99" when backward compatibility is needed
+pip3 install openstacksdk
 pip3 install openstackclient
 ```
 
