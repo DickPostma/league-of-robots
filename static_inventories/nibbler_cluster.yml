@@ -228,4 +228,7 @@ nibbler_cluster:
     cluster:
     data_transfer:
     docs:
+production:
+  children:
+    nibbler_cluster:
 ...

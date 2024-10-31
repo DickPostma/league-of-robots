@@ -101,4 +101,7 @@ talos_cluster:
     repo:
     cluster:
     docs:
+development:
+  children:
+    talos_cluster:
 ...

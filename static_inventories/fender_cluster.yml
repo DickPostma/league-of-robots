@@ -105,4 +105,7 @@ fender_cluster:
     repo:
     cluster:
     docs:
+production:
+  children:
+    fender_cluster:
 ...

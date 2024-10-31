@@ -74,4 +74,7 @@ forkhead_cluster:
     cluster:
     chaperone:
     docs:
+development:
+  children:
+    forkhead_cluster:
 ...

@@ -163,4 +163,7 @@ vaxtron_cluster:
     cluster:
     data_transfer:
     docs:
+production:
+  children:
+    vaxtron_cluster:
 ...
