@@ -521,10 +521,10 @@ lustre_client_networks:
     interface: ens6
 pfs_mounts:
   - pfs: umcgst01
-    source: '172.23.57.213@tcp14:172.23.57.214@tcp14:/umcg'
+    source: '172.23.15.186@tcp15:172.23.15.187@tcp15:/umcgdh5'
     type: lustre
-    rw_options: 'defaults,_netdev,flock'
-    ro_options: 'defaults,_netdev,ro'
+    rw_options: 'defaults,_netdev,flock,nofail,x-systemd.requires=lnet.service,x-systemd.device-timeout=60,x-systemd.automount,x-systemd.idle-timeout=600'
+    ro_options: 'defaults,_netdev,ro,nofail,x-systemd.requires=lnet.service,x-systemd.device-timeout=60,x-systemd.automount,x-systemd.idle-timeout=600'
     machines: "{{ groups['sys_admin_interface'] }}"
   - pfs: umcgst02
     source: '172.23.57.213@tcp14:172.23.57.214@tcp14:/umcg'
@@ -696,7 +696,7 @@ lfs_mounts:
       - name: umcg-vdakker
       - name: umcg-weersma
       - name: umcg-wijmenga
-    rw_machines: "{{ groups['user_interface'] }}"
+    ro_machines: "{{ groups['user_interface'] }}"
   - lfs: prm03
     pfs: umcgst02
     quota_type: 'project'
