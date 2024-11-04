@@ -56,13 +56,9 @@
       ansible.builtin.command: >
         certtool --generate-privkey --bits 4096
           --outfile {{ rsyslog_remote_path_key_dir }}/{{ inventory_hostname }}.key
-      when: not repo_rsyslog_ca_cert.stat.exists or not remote_client_cert_status.stat.exists or
-        ( verify_certificate_result.rc is defined and verify_certificate_result.rc != 0 ) or
-        remote_client_key_status.stat.size == 0
-      changed_when: not repo_rsyslog_ca_cert.stat.exists or not remote_client_cert_status.stat.exists or
-        ( verify_certificate_result.rc is defined and verify_certificate_result.rc != 0 ) or
-        remote_client_key_status.stat.size == 0
       register: remote_client_key_generate
+      when: true
+      changed_when: remote_client_key_generate.rc == 0
       failed_when: remote_client_key_generate.rc != 0
       become: true
 
@@ -80,13 +76,9 @@
         --load-privkey {{ rsyslog_remote_path_key_dir }}/{{ inventory_hostname }}.key
         --template /tmp/client_template.csr
         --outfile /tmp/{{ inventory_hostname }}.csr
-      when: not repo_rsyslog_ca_cert.stat.exists or not remote_client_cert_status.stat.exists or
-        ( verify_certificate_result.rc is defined and verify_certificate_result.rc != 0 ) or
-        remote_client_key_status.stat.size == 0
-      changed_when: not repo_rsyslog_ca_cert.stat.exists or not remote_client_cert_status.stat.exists or
-        ( verify_certificate_result.rc is defined and verify_certificate_result.rc != 0 ) or
-        remote_client_key_status.stat.size == 0
       register: client_request_generate_result
+      changed_when: client_request_generate_result.rc == 0
+      when: true
       failed_when: client_request_generate_result.rc != 0
       notify: client_restart_rsyslog
       become: true
@@ -142,13 +134,9 @@
           --load-ca-privkey {{ rsyslog_remote_path_key_dir }}/{{ rsyslog_ca_key_file }}
           --template /tmp/{{ inventory_hostname }}_client_template.csr
           --outfile {{ rsyslog_remote_path_cert_dir }}/{{ inventory_hostname }}.pem
-      when: not repo_rsyslog_ca_cert.stat.exists or not remote_client_cert_status.stat.exists or
-        ( verify_certificate_result.rc is defined and verify_certificate_result.rc != 0 ) or
-        remote_client_key_status.stat.size == 0
-      changed_when: not repo_rsyslog_ca_cert.stat.exists or not remote_client_cert_status.stat.exists or
-        ( verify_certificate_result.rc is defined and verify_certificate_result.rc != 0 ) or
-        remote_client_key_status.stat.size == 0
       register: client_certificates_generate_results
+      when: true
+      changed_when: client_certificates_generate_results.rc == 0
       failed_when: client_certificates_generate_results.rc != 0
       become: true
       delegate_to: "{{ groups['jumphost'] | first }}+{{ item }}"
