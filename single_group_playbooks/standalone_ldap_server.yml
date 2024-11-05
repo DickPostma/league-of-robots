@@ -9,16 +9,16 @@
   hosts:
     - ldap_server
   roles:
-#    - iptables
-#    - grub
-#    - ssh             # client
-#    - locale
-#    - logrotate
-#    - remove
-#    - update
-#    - logins
-#    - sshd
-#    - basic_security
+    - iptables
+    - grub
+    - ssh             # client
+    - locale
+    - logrotate
+    - remove
+    - update
+    - logins
+    - sshd
+    - basic_security
     - ldap_server
     - regular_users   # to create lsaai user
     - cluster         # to install perun software
