@@ -10,7 +10,6 @@ all:
         airlock:
           cloud_flavor: 2C-4GB
           os_distribution: 'rocky9'
-          ansible_host: 195.169.22.196
           host_networks:
             - name: vlan983
           iptables_allow_icmp_inbound:
