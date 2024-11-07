@@ -270,7 +270,4 @@ betabarrel_cluster:
     data_transfer:
     docs:
     smb_server:
-production:
-  children:
-    betabarrel_cluster:
 ...

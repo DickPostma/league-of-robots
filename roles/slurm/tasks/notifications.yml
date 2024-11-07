@@ -45,11 +45,11 @@
       program: nodes.bash
     - state: 'fail'
       program: nodes.bash
-    - state: 'draining'
+    - state: 'draining'  # Not supported on older Slurm versions < 23.02.
       program: nodes.bash
     - state: 'drained'
       program: nodes.bash
-    - state: 'resume'
+    - state: 'resume'  # Not supported on older Slurm < 23.02.
       program: nodes.bash
     - state: 'up'
       program: nodes.bash

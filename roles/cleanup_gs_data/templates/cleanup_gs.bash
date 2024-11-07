@@ -4,7 +4,7 @@ set -e
 set -u
 set -o pipefail
 
-slurm_notification_slack_webhook='{{ slurm_notification_slack_webhook }}'
+slurm_notification_slack_webhook='{{ slurm_notification_slack_webhook[stack_dtap_state] }}'
 {% raw %}
 dirToCheck="/groups/umcg-genomescan/"
 currentTimeInSeconds="$(date +%s)"
@@ -61,7 +61,7 @@ do
 	if [[ $(((${currentTimeInSeconds} - ${creationTimeInSeconds}) / 86400)) -gt 14 ]]
 	then
 		echo "  Deleting folder, because it is older than 14 days ..."
-		#rm -rf "${batchDir}"
+		rm -rf "${batchDir}"
 	else
 		echo "  Keeping folder, because it is not yet older than 14 days."
 		foundUnprocessedData="$(find "${batchDir}" -mindepth 1 -maxdepth 2 \

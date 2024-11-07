@@ -99,7 +99,4 @@ gearshift_cluster:
     repo:
     cluster:
     docs:
-production:
-  children:
-    gearshift_cluster:
 ...

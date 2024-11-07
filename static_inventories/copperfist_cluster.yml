@@ -258,7 +258,4 @@ copperfist_cluster:
     data_transfer:
     docs:
     smb_server:
-production:
-  children:
-    copperfist_cluster:
 ...

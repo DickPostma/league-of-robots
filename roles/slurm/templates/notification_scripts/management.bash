@@ -1,7 +1,7 @@
 #!/bin/bash
 
 slurm_cluster_name='{{ slurm_cluster_name | capitalize }}'
-slurm_notification_slack_webhook='{{ slurm_notification_slack_webhook }}'
+slurm_notification_slack_webhook='{{ slurm_notification_slack_webhook[stack_dtap_state] }}'
 {% raw %}
 slurm_event_type='unspecified'
 

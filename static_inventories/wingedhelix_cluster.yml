@@ -238,7 +238,4 @@ wingedhelix_cluster:
     docs:
     nfs_server:
     smb_server:
-production:
-  children:
-    wingedhelix_cluster:
 ...

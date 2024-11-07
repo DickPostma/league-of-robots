@@ -75,7 +75,4 @@ marvin_cluster:
     jumphost:
     cluster:
     docs:
-development:
-  children:
-    marvin_cluster:
 ...

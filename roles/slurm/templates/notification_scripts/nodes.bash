@@ -8,7 +8,7 @@ set -o pipefail # Fail when any command in series of piped commands failed as op
 # Global vars.
 #
 slurm_cluster_name='{{ slurm_cluster_name | capitalize }}'
-slurm_notification_slack_webhook='{{ slurm_notification_slack_webhook }}'
+slurm_notification_slack_webhook='{{ slurm_notification_slack_webhook[stack_dtap_state] }}'
 {% raw %}
 slurm_event_type='unspecified'
 SCRIPT_NAME="$(basename "${0}")"
