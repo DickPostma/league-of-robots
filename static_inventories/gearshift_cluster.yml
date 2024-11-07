@@ -9,6 +9,7 @@ all:
       hosts:
         airlock:
           cloud_flavor: 2C-4GB
+          os_distribution: 'rocky9'
           host_networks:
             - name: vlan983
     repo:
