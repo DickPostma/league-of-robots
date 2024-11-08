@@ -350,6 +350,7 @@ pfs_mounts:
     rw_options: 'defaults,_netdev,noatime,nodiratime,rw'
     ro_options: 'defaults,_netdev,noatime,nodiratime,ro'
     machines: "{{ groups['sys_admin_interface'] }}"
+    check_fs_free: '8%'
 lfs_mounts:
   - lfs: home
     pfs: ecst02
