@@ -287,7 +287,7 @@ function nhcwrap_report_results() {
 			read -r -d '' message << EOM
 {
 	"type": "mrkdwn",
-	"text": "*The _$(hostname)_ of the _${cluster_name}_ cluster is healthy again*:
+	"text": "*The _$(hostname)_ machine of the _${cluster_name}_ cluster is healthy again*:
 \`\`\`
 The following error(s) on ${cluster_name} have now been CLEARED:
 ${PREV_RESULTS}
@@ -308,7 +308,7 @@ EOM
 			read -r -d '' message << EOM
 {
 	"type": "mrkdwn",
-	"text": "*The _$(hostname)_ of the _${cluster_name}_ cluster needs help*:
+	"text": "*The _$(hostname)_ machine of the _${cluster_name}_ cluster needs help*:
 \`\`\`
 $(cat "${SAVEFILE}" | tr \" \')
 \`\`\`"
