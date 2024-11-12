@@ -12,7 +12,7 @@ slurm_notification_slack_webhook='{{ slurm_notification_slack_webhook[stack_dtap
 {% raw %}
 slurm_event_type='unspecified'
 SCRIPT_NAME="$(basename "${0}")"
-node_state_dir='/var/run/slurm/'
+node_state_dir='/tmp/slurm/'
 node_state_file_old="${node_state_dir}/sinfo_report_old"
 node_state_file_old_short="${node_state_file_old}-${$}.short"
 node_state_file_new="${node_state_dir}/sinfo_report_new-${$}"
@@ -159,7 +159,7 @@ function thereShallBeOnlyOne() {
 	local _lock_dir
 	_lock_file="${1}"
 	_lock_dir="$(dirname "${_lock_file}")"
-	mkdir -p "${_lock_dir}"  || log4Bash 'FATAL' "${LINENO}" "${FUNCNAME[0]:-main}" "${?}" "Failed to create dir for lock file at ${_lock_dir}."
+	mkdir -p -m 750 "${_lock_dir}"  || log4Bash 'FATAL' "${LINENO}" "${FUNCNAME[0]:-main}" "${?}" "Failed to create dir for lock file at ${_lock_dir}."
 	exec 200>"${_lock_file}" || log4Bash 'TRACE' "${LINENO}" "${FUNCNAME[0]:-main}" '0' "Failed to create FD 200>${_lock_file} for locking."
 	while ! flock -n 200; do
 		log4Bash 'DEBUG' "${LINENO}" "${FUNCNAME[0]:-main}" "${?}" "Lockfile ${_lock_file} already claimed by another instance of $(basename "${0}"); waiting 60 secs ..."
@@ -293,7 +293,8 @@ EOM
 # if the problem was not yet resolved.
 #
 if [[ -e "${node_state_file_old}" ]]; then
-	find "${node_state_file_old}" -mtime +1 -delete
+	mixed_stdouterr="$(find "${node_state_file_old}" -mtime +1 -delete 2>&1)"
+	mixed_stdouterr='' # Reset this variable to prevent logging wrong message in wrong place.
 fi
 
 #
