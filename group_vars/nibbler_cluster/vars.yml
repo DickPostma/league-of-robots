@@ -531,8 +531,8 @@ pfs_mounts:
   - pfs: umcgst01
     source: '172.23.15.186@tcp15:172.23.15.187@tcp15:/umcgdh5'
     type: lustre
-    #rw_options: 'defaults,_netdev,flock,nofail,x-systemd.requires=lnet.service,x-systemd.device-timeout=60,x-systemd.automount,x-systemd.idle-timeout=600'
-    #ro_options: 'defaults,_netdev,ro,nofail,x-systemd.requires=lnet.service,x-systemd.device-timeout=60,x-systemd.automount,x-systemd.idle-timeout=600'
+    #rw_options: 'defaults,_netdev,flock,x-systemd.requires=lnet.service,x-systemd.device-timeout=60,x-systemd.automount,x-systemd.idle-timeout=600'
+    #ro_options: 'defaults,_netdev,ro,x-systemd.requires=lnet.service,x-systemd.device-timeout=60,x-systemd.automount,x-systemd.idle-timeout=600'
     rw_options: 'defaults,_netdev,flock'
     ro_options: 'defaults,_netdev,ro'
     machines: "{{ groups['sys_admin_interface'] }}"
