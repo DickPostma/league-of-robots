@@ -281,7 +281,7 @@ log4Bash 'DEBUG' "${LINENO}" "${FUNCNAME[0]:-main}" '0' "New node state stored i
 read -r -d '\0' message <<- EOM
 	{
 		"type": "mrkdwn",
-		"text": "*Node state on _${slurm_cluster_name}_ changed*:  
+		"text": "*Node state on _${slurm_cluster_name}_ changed due to node ${slurm_event_type} event*:  
 		\`\`\`
 		$(tr \" \' < "${node_state_file_new}" | column -t -s '|')
 		\`\`\`"
@@ -308,8 +308,12 @@ if [[ -e "${node_state_file_old}" ]]; then
 		# when the state has not changed significantly.
 		# E.g. load was too high and changed slightly, but is still is too high.
 		#
-		sed 's/:  [^:]*$//' "${node_state_file_old}" | sort > "${node_state_file_old_short}"
-		sed 's/:  [^:]*$//' "${node_state_file_new}" | sort > "${node_state_file_new_short}"
+		sed 's/:  [^:]*$//' "${node_state_file_old}" \
+			| grep -i 'drain\|down\|fail\|maint\|respond' \
+			| sort > "${node_state_file_old_short}"
+		sed 's/:  [^:]*$//' "${node_state_file_new}" \
+			| grep -i 'drain\|down\|fail\|maint\|respond' \
+			| sort > "${node_state_file_new_short}"
 		log4Bash 'DEBUG' "${LINENO}" "${FUNCNAME[0]:-main}" '0' "Created ${node_state_file_old_short} and ${node_state_file_new_short}."
 		if cmp -s "${node_state_file_old_short}" "${node_state_file_new_short}"; then
 			log4Bash 'DEBUG' "${LINENO}" "${FUNCNAME[0]:-main}" '0' "No differences found in ${node_state_file_old_short} compared to ${node_state_file_new_short}."
