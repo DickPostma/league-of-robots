@@ -68,7 +68,7 @@ all:
           lustre_client_networks: "{{ lustre_client_networks_vm }}"
           slurm_sockets: 4
           slurm_cores_per_socket: 1
-          slurm_real_memory: 7820
+          slurm_real_memory: 7684
           slurm_local_disk: 0
           slurm_features: 'prm08,tmp08'
           slurm_ethernet_interfaces:
