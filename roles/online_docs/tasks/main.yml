@@ -39,7 +39,7 @@
   check_mode: false
   register: 'slurm_version'
 
-- name: 'Get Lmod version from UI.'
+- name: 'Get Lmod version from DAI.'
   #
   # Example output:
   # Modules based on Lua: Version 6.5.8  2016-09-03 13:41 -05:00 (CDT)
@@ -55,7 +55,7 @@
     executable: '/bin/bash'
   environment:
     SOURCE_HPC_ENV: "True"   # Required to source our modules.bashrc in non-interactive shells.
-  delegate_to: "{{ groups['user_interface'] | first }}"
+  delegate_to: "{{ groups['deploy_admin_interface'] | first }}"
   changed_when: false
   check_mode: false
   register: 'lmod_version'
