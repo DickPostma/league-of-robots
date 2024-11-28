@@ -225,11 +225,9 @@ lfs_mounts:
     pfs: umcgst04/slice5
     groups:
       - name: umcg-atd
-        mode: '2750'
       - name: umcg-gcc
         mode: '2750'
       - name: umcg-gsad
-        mode: '2750'
       - name: umcg-sysops
         mode: '2750'
     rw_machines: "{{ groups['user_interface'] + groups['deploy_admin_interface'] + groups['compute_node'] }}"
