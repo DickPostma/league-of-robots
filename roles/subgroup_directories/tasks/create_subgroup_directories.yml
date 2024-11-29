@@ -32,7 +32,7 @@
       # Continue if this specific subgroup failed and try to create other subgroup folders.
       ignore_errors: true  # noqa ignore-errors
 
-- name: "Create directory structure for projects on."
+- name: "Create directory structure for projects."
   when: unversioned_sub_groups | length > 0
   become: true
   become_user: "{{ main_group }}-dm"
